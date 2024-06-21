@@ -26,6 +26,8 @@ def jacobi(niter, psi):
     # Define the temporary array and zero it
     psitmp = [[0 for col in range(n+2)] for row in range(m+2)]
 
+    print("\nStarting main loop...\n");
+
     # Iterate for number of iterations
     for iter in range(1,niter+1):
 
@@ -44,8 +46,6 @@ def jacobi(niter, psi):
             error = math.sqrt(error)
             error = error/bnorm
 
-            sys.stdout.write("Final error is {0}\n".format(error))
-
         # Update psi
         for i in range(1,m+1):
             for j in range(1,n+1):
@@ -53,4 +53,8 @@ def jacobi(niter, psi):
 
         # Debug output
         if iter%1000 == 0:
-            sys.stdout.write("completed iteration {0}\n".format(iter))
+            print("Completed iteration ", iter)
+
+    print("\n... finished");
+    print("After ", niter, " iterations, the error is ", error);
+

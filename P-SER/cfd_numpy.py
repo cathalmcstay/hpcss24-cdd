@@ -5,10 +5,11 @@
 #
 # Simulation of inviscid flow in a 2D box using the Jacobi algorithm.
 #
-# Python version - uses numpy and loops
+# Basic Python version - uses lists
 #
 # EPCC, 2014
 #
+
 import sys
 import time
 
@@ -25,17 +26,17 @@ def main(argv):
 
     # Test we have the correct number of arguments
     if len(argv) < 2:
-        sys.stdout.write("Usage: cfd.py <scalefactor> <iterations>\n")
+        print("Usage: cfd.py <scalefactor> <iterations>")
         sys.exit(1)
         
     # Get the systen parameters from the arguments
     scalefactor = int(argv[0])
     niter = int(argv[1])
     
-    sys.stdout.write("\n2D CFD Simulation\n")
-    sys.stdout.write("=================\n")
-    sys.stdout.write("Scale factor = {0}\n".format(scalefactor))
-    sys.stdout.write("Iterations   = {0}\n".format(niter))
+    print("\n2D CFD Simulation")
+    print("=================")
+    print("Scale factor = {0}".format(scalefactor))
+    print("Iterations   = {0}".format(niter))
     
     # Set the minimum size parameters
     mbase = 32
@@ -54,7 +55,7 @@ def main(argv):
     w = wbase*scalefactor
 
     # Write the simulation details
-    sys.stdout.write("\nGrid size = {0} x {1}\n".format(m, n))
+    print("\nGrid size = {0} x {1}".format(m, n))
     
     # Define the psi array of dimension [m+2][n+2] and set it to zero
     psi = np.zeros((m+2, n+2))
@@ -72,16 +73,19 @@ def main(argv):
         psi[m+1][j] = float(w-j+h)
     
     # Call the Jacobi iterative loop (and calculate timings)
-    sys.stdout.write("\nStarting main Jacobi loop ...\n\n")
     tstart = time.time()
     jacobi(niter, psi)
     tend = time.time()
-    sys.stdout.write("\n... finished\n")
-    sys.stdout.write("\nCalculation took {0:.5f}s\n\n".format(tend-tstart))
-    
-    # Write the output files for subsequent visualisation
-    util.write_data(m, n, scalefactor, psi, "velocity.dat", "colourmap.dat")
 
+    ttot = tend - tstart
+
+    print("Time for ", niter, " iterations was ", ttot, " seconds")
+    print("Each iteration took ", ttot/niter, " seconds")
+  
+    print("\nWriting data files ...")
+# Write the output files for subsequent visualisation
+    util.write_data(m, n, scalefactor, psi, "velocity.dat", "colourmap.dat")
+    print("... done")
     # Finish nicely
     sys.exit(0)
 

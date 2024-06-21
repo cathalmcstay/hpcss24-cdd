@@ -16,6 +16,8 @@ def jacobi(niter, psi):
 
     psitmp = np.zeros((m+2, n+2))
 
+    print("\nStarting main loop...\n");
+
     for iter in range(1,niter+1):
 
         # Use index notation and offsets to compute the stream function
@@ -28,10 +30,12 @@ def jacobi(niter, psi):
             error = math.sqrt(error)
             error = error/bnorm
 
-            sys.stdout.write("Final error is {0}\n".format(error))
-
         # Update psi
         np.copyto(psi[1:m+1,1:n+1], psitmp[1:m+1,1:n+1])
-
+        
+        # Debug output
         if iter%1000 == 0:
-            sys.stdout.write("completed iteration {0}\n".format(iter))
+            print("Completed iteration ", iter)
+
+    print("\n... finished");
+    print("After ", niter, " iterations, the error is ", error);
