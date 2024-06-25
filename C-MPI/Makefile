@@ -9,7 +9,7 @@ SYSTEM=cirrus
 
 ifeq ($(SYSTEM), archer)
 CC=	cc
-CFLAGS=	-O3
+CFLAGS=
 LFLAGS=
 endif
 
@@ -17,7 +17,7 @@ endif
 
 ifeq ($(SYSTEM), cirrus)
 CC=	mpicc
-CFLAGS=	-cc=icc -O3
+CFLAGS=	-cc=icc
 LFLAGS=	-lm
 endif
 
@@ -25,7 +25,7 @@ endif
 
 ifeq ($(SYSTEM), linux)
 CC=	mpicc
-CFLAGS=	-O3
+CFLAGS=
 LFLAGS=	-lm
 endif
 

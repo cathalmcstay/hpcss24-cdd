@@ -17,7 +17,7 @@ endif
 
 ifeq ($(SYSTEM), cirrus)
 CC=	icc
-CFLAGS=	-O3
+CFLAGS=
 LFLAGS=	-lm
 endif
 
@@ -25,7 +25,7 @@ endif
 
 ifeq ($(SYSTEM), linux)
 CC=	gcc
-CFLAGS=	-O3
+CFLAGS=
 LFLAGS=	-lm
 endif
 

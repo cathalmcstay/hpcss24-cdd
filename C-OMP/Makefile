@@ -9,7 +9,7 @@ SYSTEM=cirrus
 
 ifeq ($(SYSTEM), archer)
 CC=	cc
-CFLAGS=	-fopenmp -O3
+CFLAGS=	-fopenmp
 LFLAGS=
 endif
 
@@ -17,7 +17,7 @@ endif
 
 ifeq ($(SYSTEM), cirrus)
 CC=	icc
-CFLAGS=	-qopenmp -O3
+CFLAGS=	-qopenmp
 LFLAGS=	-lm
 endif
 
@@ -25,7 +25,7 @@ endif
 
 ifeq ($(SYSTEM), linux)
 CC=	gcc
-CFLAGS=	-fopenmp -O3
+CFLAGS=	-fopenmp
 LFLAGS=	-lm
 endif
 
