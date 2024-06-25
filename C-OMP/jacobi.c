@@ -23,8 +23,6 @@ void jacobistepvort(int m, int n,
 {
   int i, j;
 
-#pragma omp parallel for default(none), \
-  private(i,j), shared(psi,psinew,zet,m,n)
   for(i=1;i<=m;i++)
     {
       for(j=1;j<=n;j++)
@@ -34,8 +32,6 @@ void jacobistepvort(int m, int n,
 	}
     }
 
-#pragma omp parallel for default(none), \
-  private(i,j), shared(zet,zetnew,psi,m,n,re)
   for(i=1;i<=m;i++)
     {
       for(j=1;j<=n;j++)
