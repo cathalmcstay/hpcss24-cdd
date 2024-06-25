@@ -14,7 +14,7 @@ def write_data(m, n, scale, psi, velfile, colfile):
 
     # Open the specified files
     velout = open(velfile, "w")
-    velout.write("{0} {1}\n".format(m/scale, n/scale))
+    velout.write("{0} {1}\n".format(int(m/scale), int(n/scale)))
     colout = open(colfile, "w")
     colout.write("{0} {1}\n".format(m, n))
 
@@ -35,7 +35,7 @@ def write_data(m, n, scale, psi, velfile, colfile):
             colout.write("{0:5d} {1:5d} {2:10.5f}\n".format(i-1, j-1, hue))
 
             # Only write velocity vectors every "scale" points
-            if (i-1)%scale == (scale-1)/2 and (j-1)%scale == (scale-1)/2:
+            if (i-1)%scale == int((scale-1)/2) and (j-1)%scale == int((scale-1)/2):
                 velout.write("{0:5d} {1:5d} {2:10.5f} {3:10.5f}\n".format(i-1, j-1, ux, uy))
 
     velout.close()
