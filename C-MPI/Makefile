@@ -17,7 +17,7 @@ endif
 
 ifeq ($(SYSTEM), cirrus)
 CC=	mpicc
-CFLAGS=	-cc=icc -O3 -DUSEVLA
+CFLAGS=	-cc=icc -O3
 LFLAGS=	-lm
 endif
 
@@ -48,11 +48,6 @@ SRC= \
 	cfdio.c \
 	jacobi.c
 
-OUT= \
-	velocity.dat \
-	colourmap.dat \
-	cfd.plt
-
 #
 # No need to edit below this line
 #
@@ -78,4 +73,4 @@ tar:
 	tar cvf cfd.tar $(MF) $(INC) $(SRC)
 
 clean:
-	rm -f $(OBJ) $(EXE) $(OUT) core *~
+	rm -f $(OBJ) $(EXE) velocity.dat colourmap.dat cfd.plt core
