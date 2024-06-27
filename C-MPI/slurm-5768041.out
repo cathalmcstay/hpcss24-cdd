@@ -1,0 +1,30 @@
+Loading intel-20.4/compilers
+  Loading requirement: intel-license gcc/10.2.0 intel-20.4/cc intel-20.4/fc
+Scale Factor = 8, iterations = 10000
+Reynolds number = 2.000000
+Running CFD on 256 x 256 grid using 128 process(es) 
+
+Starting main loop...
+
+Completed iteration 1000
+Completed iteration 2000
+Completed iteration 3000
+Completed iteration 4000
+Completed iteration 5000
+Completed iteration 6000
+Completed iteration 7000
+Completed iteration 8000
+Completed iteration 9000
+Completed iteration 10000
+
+... finished
+After 10000 iterations, the error is 6.22355e-05
+Time for 10000 iterations was 0.220125 seconds
+Each iteration took 2.20125e-05 seconds
+
+
+Writing data files ...
+... done!
+
+Written gnuplot script 'cfd.plt'
+... finished

@@ -2,15 +2,15 @@
 
 # Slurm job options (name, compute nodes, job time)
 #SBATCH --job-name=cfd
-#SBATCH --time=0:10:0
+#SBATCH --time=0:50:0
 #SBATCH --exclusive
-#SBATCH --nodes=1
-#SBATCH --ntasks=4
-#SBATCH --tasks-per-node=4
+#SBATCH --nodes=4
+#SBATCH --ntasks=128
+#SBATCH --tasks-per-node=32
 #SBATCH --cpus-per-task=1
 #SBATCH --account=tc063
 #SBATCH --partition=standard
-#SBATCH --qos=short
+#SBATCH --qos=standard
 
 export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
 
@@ -29,5 +29,5 @@ export OMP_NUM_THREADS=1
 # Launch the parallel job
 #   Using 4 MPI processes on 1 node
 #   srun picks up the distribution from the sbatch options
-srun --cpu-bind=cores ./cfd 4 5000
+srun --cpu-bind=cores ./cfd 8 10000 2.0
 
