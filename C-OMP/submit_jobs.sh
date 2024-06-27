@@ -7,7 +7,6 @@ configs=(
     "1 4 4 4 8 5000"
 )
 
-
 output_summary="results_summary.txt"
 rm -f $output_summary
 
@@ -41,37 +40,16 @@ for config in "${configs[@]}"; do
     echo "Submitted job $job_id with config: $config_comment"
 done
 
-# Wait for jobs to finish and collect results
-echo "Waiting for jobs to finish..."
-while [[ ${#job_ids[@]} -gt 0 ]]; do
-    for job_id in "${!job_ids[@]}"; do
-        state=$(squeue -j $job_id -h -o %T)
-        if [[ "$state" == "COMPLETED" ]]; then
-            echo "Job $job_id completed."
-            output_file="slurm-${job_id}.out"
-            if [[ -f $output_file ]]; then
-                # Extract the relevant statistics from the output file
-                error=$(grep "error is" $output_file | awk '{print $5}')
-                time=$(grep "Time for" $output_file | awk '{print $4}')
-                # Add the extracted statistics to the summary file with the corresponding configuration comment
-                echo "${job_ids[$job_id]}: error = $error, time = $time" >> $output_summary
-            else
-                # If the output file is not found, log an error message
-                echo "${job_ids[$job_id]}: Output file for job $job_id not found." >> $output_summary
-            fi
-            # Remove the completed job from the job_ids array
-            unset job_ids[$job_id]
-        elif [[ "$state" == "FAILED" ]]; then
-            echo "Job $job_id failed."
-            # Log the failure in the summary file
-            echo "${job_ids[$job_id]}: Job $job_id failed." >> $output_summary
-            # Remove the failed job from the job_ids array
-            unset job_ids[$job_id]
+# Wait for all jobs to complete
+for job_id in "${!job_ids[@]}"; do
+    while : ; do
+        squeue -j $job_id > /dev/null 2>&1
+        if [ $? -ne 0 ]; then
+            echo "Job $job_id (${job_ids[$job_id]}) has completed."
+            break
         fi
+        sleep 10
     done
-    # Sleep for a short interval before checking the job status again
-    sleep 10
 done
 
-# Print a message indicating that all jobs have finished and where the results summary is located
-echo "All jobs have finished. Results summary written to $output_summary."
+echo "All jobs have finished" > $output_summary
